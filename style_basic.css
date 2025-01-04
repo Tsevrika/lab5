@@ -9,7 +9,6 @@ body {
     top: 0%;
     left: 0%;
     width: 75%;
-    height: 15%;
     background-color: lightblue;
 }
 .block2 { 
@@ -17,7 +16,7 @@ body {
     top: 0%;
     right: 0;
     width: 25%;
-    height: 85%;
+    height: 100%;
     background-color: lightgreen; 
     ol {
         padding-left: 50px;
@@ -25,10 +24,10 @@ body {
 }
 .block3 { 
     position: fixed;
-    top: 12%;
+    top: 9%;
     left: 0%;
     width: 25%;
-    height: 73%;
+    height: 100%;
     background-color: peachpuff;
 }
 .block3 nav ul {
@@ -44,31 +43,34 @@ body {
 }
 .block4 { 
     position: fixed;
-    top: 12%;
+    top: 9%;
     left: 25%;
     width: 50%;
-    height: 10%;
     background-color: peachpuff;
 }
 .block5 { 
     position: fixed;
-    top: 21%;
+    top: 15%;
     left: 25%;
     width: 50%;
     background-color: white;
-    overflow-y: auto;
 }
 .block5 img {
-    width: 100%;
-    height: auto;
-    margin-top: 5px;
+    width: calc(100% - 50px);
+    margin: 0 auto;
+    display: block;
+    object-fit: cover;
+}
+.block5 p {
+    margin: 2px;
+    padding: 2px;
 }
 .block6 { 
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 15%;
+    height: 9%;
     background-color: lightblue;
 }
 h1, h2 {
