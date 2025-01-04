@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лр5</title>
+    <link rel="stylesheet" href="style_basic.css">
+</head>
+<body>
+    <div class="block1">
+        <h1 style="margin-left: 50px; text-align: left;">Собака</h1>
+    </div>
+    <div class="block3">
+        <h2>Меню</h2>
+        <nav>
+            <ul>
+                <li><a href="index.html">Головна</a></li>
+                <li><a href="page1.html">Сторінка 1</a></li>
+                <li><a href="page2.html">Сторінка 2</a></li>
+                <li><a href="page3.html">Сторінка 3</a></li>
+                <li><a href="page4.html">Сторінка 4</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="block2">
+        <h3>Список найрозповсюдженіших порід собак</h3>
+        <ol>
+            <li>Лабрадор</li>
+            <li>Золотистий ретривер</li>
+            <li>Бішон фризе (болонка)</li>
+            <li>Англійський бульдог</li>
+            <li>Бернський зенненхунд</li>
+            <li>Бордер-коллі</li>
+            <li>Німецька вівчарка</li>
+            <li>Пудель</li>
+            <li>Кокер-спанієль</li>
+        </ol>
+    </div>
+    <div class="block4">
+        <h3> Пес, або собака це.. </h3>
+    </div>
+    <div class="block5">
+        <p>Рід ссавців родини псових (Canidae), який об'єднує звірів з добре розвиненими довгими кінцівками, пристосованими до швидкого бігу (кігті невтяжні). Вони переслідують здобич, часто утворюють сім'ї та зграї. Цей рід включає вовків, шакала, койота, а також свійського пса.</p>
+        <img src="dog.jpg" alt="собака" usemap="#dogmap" style="width: 50%;">
+        <map name="dogmap">
+            <area shape="rect" coords="0,0,100,100" alt="Сторінка 3" href="page3.html">
+        </map>
+        <div>
+            <label>
+                <input type="checkbox" id="italicCheckbox"> Використовувати курсив для тексту в блоці 3
+            </label>
+        </div>
+    </div>
+    <div class="block6">
+        <h1 style="margin-right: 50px; text-align: right;">Собака - найкращий друг людини</h1>
+    </div>
+
+    <script>
+        function swapBlocks() {
+            const block1 = document.querySelector('.block1');
+            const block6 = document.querySelector('.block6');
+            const temp = block1.innerHTML;
+            block1.innerHTML = block6.innerHTML;
+            block6.innerHTML = temp;
+        }
+        swapBlocks();
+
+        function calculateArea() {
+            const width = 10; 
+            const height = 5; 
+            const area = width * height;
+            const block5 = document.querySelector('.block5');
+            const areaParagraph = document.createElement('p');
+            areaParagraph.textContent = `Area of the rectangle: ${area}`;
+            block5.appendChild(areaParagraph);
+        }
+        calculateArea();
+
+        function promptMinNumbers() {
+            if (document.cookie.includes("minValues")) {
+                if (confirm("У куках збережені попередні дані. Хочете зберегти їх?")) {
+                    alert("Дані збережені. Будь ласка, перезавантажте сторінку, щоб побачити їх.");
+                } else {
+                    const cookies = document.cookie.split(";");
+                    cookies.forEach(cookie => {
+                        const cookieName = cookie.split("=")[0].trim();
+                        document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+                    });
+                    location.reload();
+                }
+            } else {
+                let numbers = prompt("Введіть 10 чисел через кому").split(',').map(Number);
+                let minValue = Math.min(...numbers); 
+                let minCount = numbers.filter(num => num === minValue).length; 
+
+                alert(`Мінімальне значення зустрічається ${minCount} разів`);
+                document.cookie = `minValues=${minCount}; path=/;`;
+            }
+        }
+        promptMinNumbers();
+
+
+        function toggleItalic() {
+            const block3 = document.querySelector('.block3');
+            const checkbox = document.getElementById('italicCheckbox');
+
+            const isItalic = localStorage.getItem('isItalic') === 'true';
+            checkbox.checked = isItalic;
+            block3.style.fontStyle = isItalic ? 'italic' : 'normal';
+
+            checkbox.addEventListener('change', () => {
+                if (checkbox.checked) {
+                    block3.style.fontStyle = 'italic';
+                    localStorage.setItem('isItalic', 'true');
+                } else {
+                    block3.style.fontStyle = 'normal';
+                    localStorage.setItem('isItalic', 'false');
+                }
+            });
+        }
+        toggleItalic();
+
+        function createCSSForm() {
+            const block2 = document.querySelector('.block2');
+            const block5 = document.querySelector('.block5');
+
+            block2.addEventListener('dblclick', () => {
+                if (!document.getElementById('cssForm')) {
+                    const form = document.createElement('form');
+                    form.id = 'cssForm';
+                    const cssInput = document.createElement('input');
+                    cssInput.placeholder = "Введіть CSS (наприклад: color: red;)";
+                    const applyButton = document.createElement('button');
+                    applyButton.textContent = "Застосувати";
+
+                    applyButton.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const cssValue = cssInput.value;
+                        const cssKey = `css_${Date.now()}`; 
+
+                        localStorage.setItem(cssKey, cssValue);
+                        applyCSS(cssValue); 
+
+                        createDeleteButton(cssKey, cssValue);
+                        cssInput.value = "";
+                    });
+
+                    form.appendChild(cssInput);
+                    form.appendChild(applyButton);
+                    block5.appendChild(form);
+                }
+            });
+
+            Object.keys(localStorage).forEach((key) => {
+                if (key.startsWith("css_")) {
+                    const cssValue = localStorage.getItem(key);
+                    applyCSS(cssValue); 
+                    createDeleteButton(key, cssValue); 
+                }
+            });
+        }
+
+        function applyCSS(cssValue) {
+            const block5 = document.querySelector('.block5');
+            block5.style.cssText += cssValue;
+        }
+
+        function createDeleteButton(cssKey, cssValue) {
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = `Видалити стиль: ${cssValue}`;
+            
+            deleteButton.addEventListener('click', () => {
+                localStorage.removeItem(cssKey);
+                
+                removeCSS(cssValue);
+                
+                deleteButton.remove();
+            });
+            
+            document.querySelector('.block2').appendChild(deleteButton);
+        }
+
+        function removeCSS(cssValue) {
+            const block5 = document.querySelector('.block5');
+            const currentStyles = block5.style.cssText.split(';');
+            const updatedStyles = currentStyles.filter(style => style.trim() && !style.includes(cssValue.split(':')[0].trim()));
+            block5.style.cssText = updatedStyles.join(';');
+        }
+
+        createCSSForm();
+
+    </script>
+</body>
+</html>

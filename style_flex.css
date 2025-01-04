@@ -1,0 +1,40 @@
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column
+}
+.block1 { 
+    grid-column: span 3;
+    grid-row: span 2;
+    background-color: lightblue; 
+}
+.block2 { 
+    grid-column: span 1;
+    grid-row: span 31;
+    background-color: lightgreen; 
+}
+.block3 { 
+    grid-column: span 1;
+    grid-row: span 31; 
+    background-color: peachpuff; 
+}
+.block4 { 
+    grid-column: span 2; 
+    grid-row: span 1;
+    background-color: peachpuff; 
+}
+.block5 { 
+    grid-column: span 2; 
+    grid-row: span 31; 
+    background-color: white; 
+}
+.block6 { 
+    grid-column: span 1; 
+    grid-row: span 2;
+    background-color: lightblue;       
+    bottom: 0; 
+    width: 100%; 
+}
+h1, h2 {
+    text-align: center;
+}
